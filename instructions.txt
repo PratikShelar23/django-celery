@@ -1,0 +1,35 @@
+pip install celery redis
+
+python -i .\task.py # In terminal
+celery -A task worker -l info -P threads # In bash
+
+or 
+
+celery -A djangocelery worker --loglevel=info --pool=threads
+
+
+In terminal after task executed
+
+result = process.delay(1,2)
+result.get() # will take time first 
+result.get() # from redis
+
+result = process.AsyncResult("9e6dc38c-e86c-4595-ae05-fb3c2b785289")
+>>> result.ready()
+True
+>>> result.status
+'SUCCESS'
+
+
+PROJECT :
+
+User Places Order
+     |
+     |--> Django API creates order
+     |
+Celery Task updates order status (async)
+     |
+     |--> Sends WebSocket message to user via Channels / Redis
+     |
+Frontend auto-updates without page refresh
+

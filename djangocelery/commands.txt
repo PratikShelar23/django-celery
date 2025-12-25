@@ -1,0 +1,3 @@
+(env) PS C:\personal_proj\celeryproj\djangocelery> celery -A djangocelery worker --loglevel=info --pool=threads
+
+(env) PS C:\personal_proj\celeryproj\djangocelery> celery -A djangocelery flower
